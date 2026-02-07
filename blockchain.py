@@ -49,6 +49,8 @@ def create_blockchain():
 
 def addBlockchain(newData):
     filename = "Blockchain.csv"
+    # NOTE: Using random.random() to seed PCG32 for demo purposes.
+    # For production blockchain systems, use secrets.randbits(64) for cryptographic security.
     param1 = np.uint64(random.random()*(2**64))
     param2 = np.uint64(random.random()*(2**64))
     param3 = np.uint64(6364136223846793005)
