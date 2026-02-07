@@ -230,8 +230,9 @@ This is an educational repository. Feel free to submit issues or PRs.
 
 ## Author
 
-**Al Azkiyai**
+**Ahmad Whafa Azka Al Azkiyai**
 - GitHub: [alazkiyai09](https://github.com/alazkiyai09)
+- Email: [azka.alazkiyai@outlook.com](mailto:azka.alazkiyai@outlook.com)
 - Specialization: Fraud Detection & AI Security
 
 ## References
