@@ -5,6 +5,7 @@ from pymongo import MongoClient
 import pandas as pd
 import random
 import os
+import sys
 import time
 
 def sha3(data):
@@ -42,7 +43,7 @@ def read_file(filename):
 def create_blockchain():
     filename = "Blockchain.csv"
     newData = pd.DataFrame(columns=['Index','Data','Time','Previous Hash','Nonce','Hash'], index=None)
-    newData = newData.append({'Index':str(0), 'Data': 'Genesis', 'Time': str(datetime.now()), 'Previous Hash': "0", 'Nonce': "0", 'Hash': "0"}, ignore_index=True)
+    newData = pd.concat([newData, pd.DataFrame([{'Index':str(0), 'Data': 'Genesis', 'Time': str(datetime.now()), 'Previous Hash': "0", 'Nonce': "0", 'Hash': "0"}])], ignore_index=True)
 
     newData.to_csv(filename, index=None)
 
@@ -64,7 +65,7 @@ def addBlockchain(newData):
         nonce = nonce - 1
         Hash = hashValue(index, newData, timestamp, prevHash, nonce)
         if Hash[0:6] == '00ff00':
-            data = data.append({"Index": str(index), "Data": newData, "Time": timestamp, "Previous Hash": prevHash, "Nonce": str(nonce), "Hash": Hash}, ignore_index=True)
+            data = pd.concat([data, pd.DataFrame([{"Index": str(index), "Data": newData, "Time": timestamp, "Previous Hash": prevHash, "Nonce": str(nonce), "Hash": Hash}])], ignore_index=True)
             data.to_csv(filename, index=None)
             break
         if i > 1000:
@@ -114,6 +115,10 @@ def changeBlcok(newData, index):
     data.to_csv(filename, index=None)
 
 
+def clear_screen():
+    """Clear terminal screen - cross-platform compatible."""
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 
 def main():
     exit = False
@@ -126,23 +131,23 @@ def main():
         print("5. Exit")
         x = int(input("Write Number of Action: "))
         if x == 1:
-            os.system('cls')
+            clear_screen()
             create_blockchain()
             print("Blockchain Successfully Created")
         elif x == 2:
-            os.system('cls')
+            clear_screen()
             newData = input("Input New Data: ")
             addBlockchain(newData)
             print("New Data Successfully Added")
         elif x == 3:
-            os.system('cls')
+            clear_screen()
             viewBlock()
         elif x == 4:
-            os.system('cls')
+            clear_screen()
             validateBlock()
         elif x == 5:
             exit = True
-            os.system('cls')
+            clear_screen()
 
 
 if __name__ == '__main__':
